@@ -36,35 +36,6 @@ def generate_qr_code(data, filename=None, size=10, border=4):
     
     return img
 
-def generate_colored_qr_code(data, filename=None, fill_color="black", back_color="white"):
-    """
-    生成彩色 QR Code
-    
-    參數:
-    data: 要編碼的數據
-    filename: 保存的檔案名稱（可選）
-    fill_color: 前景色（預設為黑色）
-    back_color: 背景色（預設為白色）
-    """
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
-    
-    qr.add_data(data)
-    qr.make(fit=True)
-    
-    # 創建彩色圖像
-    img = qr.make_image(fill_color=fill_color, back_color=back_color)
-    
-    if filename:
-        img.save(filename)
-        print(f"彩色 QR Code 已保存為: {filename}")
-    
-    return img
-
 def generate_qr_with_logo(data, logo_path, filename=None):
     """
     生成帶有 Logo 的 QR Code
@@ -117,27 +88,23 @@ def generate_qr_with_logo(data, logo_path, filename=None):
 
 # 使用範例
 if __name__ == "__main__":
-    # 範例 1: 基本 QR Code
-    text = "Hello, World! 你好世界！"
-    qr_img = generate_qr_code(text, "basic_qr.png")
-    print("基本 QR Code 生成完成")
+    # IKEA 新莊店維修服務頁面 QR Code
     
-    # 範例 2: IKEA 維修服務網址 QR Code
-    url = "https://www.ikea.com.tw/zh/store/hsin-chuang/repair"
-    url_qr = generate_qr_code(url, "ikea_repair_qr.png", size=8)
-    print("IKEA 維修服務 QR Code 生成完成")
+    # 中文版網址
+    url_zh = "https://www.ikea.com.tw/zh/store/hsin-chuang/repair"
+    qr_zh = generate_qr_code(url_zh, "ikea_repair_zh.png", size=10)
+    print("IKEA 維修服務 (中文版) QR Code 生成完成")
     
-    # 範例 3: 彩色 QR Code
-    colored_qr = generate_colored_qr_code(
-        "彩色 QR Code 測試", 
-        "colored_qr.png", 
-        fill_color="blue", 
-        back_color="yellow"
-    )
-    print("彩色 QR Code 生成完成")
+    # 英文版網址
+    url_en = "https://www.ikea.com.tw/en/store/hsin-chuang/repair"
+    qr_en = generate_qr_code(url_en, "ikea_repair_en.png", size=10)
+    print("IKEA 維修服務 (英文版) QR Code 生成完成")
     
-    # 範例 4: 帶 Logo 的 QR Code（需要先有 logo.png 檔案）
-    # logo_qr = generate_qr_with_logo("Logo QR Code", "logo.png", "logo_qr.png")
+    print("\n✅ 兩個 QR Code 都已生成完成！")
+    print("📁 檔案位置:")
+    print("   - ikea_repair_zh.png (中文版)")
+    print("   - ikea_repair_en.png (英文版)")
     
     # 顯示圖像（如果在 Jupyter notebook 中執行）
-    # qr_img.show()  # 取消註解以顯示圖像
+    # qr_zh.show()  # 取消註解以顯示中文版圖像
+    # qr_en.show()  # 取消註解以顯示英文版圖像
